@@ -1,0 +1,353 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2822
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww28600\viewh15660\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 <!DOCTYPE html>\
+<html>\
+  <head>\
+    <!-- This is where we put styles and settings -->\
+    <title>Kids Worksheets App</title>\
+  </head>\
+  <body>\
+    <!-- This is where everything the kid SEES goes -->\
+  </body>\
+</html>\
+\
+/* Import a fun, rounded font */\
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');\
+\
+body \{\
+  font-family: 'Fredoka One', cursive; /* bubbly font */\
+  background: #FFFBF0;                 /* warm cream background */\
+  margin: 0;\
+\}\
+\
+/* Big colorful button */\
+.big-button \{\
+  background: #FF4E6A;   /* bright red-pink */\
+  color: white;\
+  font-size: 20px;\
+  padding: 15px 30px;    /* space inside the button */\
+  border-radius: 25px;   /* rounded corners */\
+  border: none;\
+  cursor: pointer;       /* shows hand when you hover */\
+\}\
+\
+.big-button:hover \{\
+  transform: scale(1.1); /* grows slightly when hovered */\
+\}\
+\
+<div id="age-screen">\
+  <h1>\uc0\u55356 \u57266  Fun Worksheets!</h1>\
+  <p>Pick your age to start!</p>\
+\
+  <!-- Three age cards side by side -->\
+  <div class="age-cards">\
+\
+    <div class="age-card" onclick="pickAge(6)">\
+      <span>\uc0\u55357 \u56355 </span>\
+      <h2>Age 6</h2>\
+      <p>Easy</p>\
+    </div>\
+\
+    <div class="age-card" onclick="pickAge(7)">\
+      <span>\uc0\u55357 \u56357 </span>\
+      <h2>Age 7</h2>\
+      <p>Medium</p>\
+    </div>\
+\
+    <div class="age-card" onclick="pickAge(8)">\
+      <span>\uc0\u55358 \u56709 </span>\
+      <h2>Age 8</h2>\
+      <p>Hard</p>\
+    </div>\
+\
+  </div>\
+</div>\
+\
+<div class="tab-bar">\
+  <button onclick="go('math')">\uc0\u10133  Math</button>\
+  <button onclick="go('spelling')">\uc0\u55357 \u56612  Spelling</button>\
+  <button onclick="go('matching')">\uc0\u55357 \u56599  Matching</button>\
+  <button onclick="go('scores')">\uc0\u55356 \u57286  Scores</button>\
+</div>\
+\
+<!-- The math question card -->\
+<div id="pg-math">\
+\
+  <!-- Big animal greeting -->\
+  <div class="hero">\
+    <span>\uc0\u55357 \u56367 </span>\
+    <h2>Addition!</h2>\
+    <p>Tiger has new sums for you!</p>\
+  </div>\
+\
+  <!-- The question itself -->\
+  <div class="question-box" id="math-problem">\
+    5 + 3 = ?\
+  </div>\
+\
+  <!-- Four answer buttons in a 2x2 grid -->\
+  <div class="choices" id="math-choices">\
+    <!-- Buttons are added by JavaScript -->\
+  </div>\
+\
+  <!-- Feedback message (hidden until answered) -->\
+  <div class="feedback" id="math-feedback"></div>\
+\
+</div>\
+\
+<div id="pg-spelling">\
+\
+  <!-- Show the emoji as a picture clue -->\
+  <div id="spell-emoji">\uc0\u55357 \u56344 </div>\
+  <p id="spell-hint">Hint: The biggest land animal</p>\
+\
+  <!-- Empty boxes for each letter of the answer -->\
+  <div id="answer-slots">\
+    <!-- Example for ELEPHANT \'97 8 empty boxes -->\
+    <div class="slot"></div>\
+    <div class="slot"></div>\
+    <div class="slot"></div>\
+    <!-- ...more boxes added by JavaScript -->\
+  </div>\
+\
+  <!-- Shuffled letter buttons to tap -->\
+  <div id="letter-buttons">\
+    <button>E</button>\
+    <button>L</button>\
+    <button>P</button>\
+    <!-- ...more letters added by JavaScript -->\
+  </div>\
+\
+</div>\
+\
+<div id="pg-matching">\
+\
+  <div class="two-columns">\
+\
+    <!-- Left column: emoji -->\
+    <div id="left-column">\
+      <div class="match-item" onclick="tapMatch(0, 'left')">\uc0\u55357 \u56344 </div>\
+      <div class="match-item" onclick="tapMatch(1, 'left')">\uc0\u55358 \u56722 </div>\
+      <div class="match-item" onclick="tapMatch(2, 'left')">\uc0\u55357 \u56364 </div>\
+    </div>\
+\
+    <!-- Right column: words -->\
+    <div id="right-column">\
+      <div class="match-item" onclick="tapMatch(1, 'right')">Giraffe</div>\
+      <div class="match-item" onclick="tapMatch(0, 'right')">Elephant</div>\
+      <div class="match-item" onclick="tapMatch(2, 'right')">Dolphin</div>\
+    </div>\
+\
+  </div>\
+\
+</div>\
+\
+// \uc0\u9472 \u9472  1. PICK AN AGE \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \
+function pickAge(age) \{\
+  // Save the chosen age\
+  currentAge = age;\
+\
+  // Hide the age-picker screen\
+  document.getElementById('age-screen').style.display = 'none';\
+\
+  // Show the main app\
+  document.getElementById('main-app').style.display = 'block';\
+\
+  // Generate fresh activities for this age\
+  generateMath();\
+  generateSpelling();\
+  generateMatching();\
+\}\
+\
+\
+// \uc0\u9472 \u9472  2. SWITCH PAGES (tabs) \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \
+function go(pageName) \{\
+  // Hide ALL pages first\
+  document.querySelectorAll('.page').forEach(page => \{\
+    page.style.display = 'none';\
+  \});\
+\
+  // Show only the chosen page\
+  document.getElementById('pg-' + pageName).style.display = 'block';\
+\}\
+\
+\
+// \uc0\u9472 \u9472  3. GENERATE A MATH QUESTION \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \
+function generateMath() \{\
+  // Age 6 = numbers 1\'9610, Age 7 = 1\'9620, Age 8 = 10\'9650\
+  let max = currentAge === 6 ? 10 : currentAge === 7 ? 20 : 50;\
+\
+  let a = randomNumber(1, max);   // first number\
+  let b = randomNumber(1, max);   // second number\
+  let answer = a + b;             // correct answer\
+\
+  // Show the question on screen\
+  document.getElementById('math-problem').textContent = a + ' + ' + b + ' = ?';\
+\
+  // Make 4 answer choices (1 correct + 3 wrong)\
+  let choices = makeChoices(answer);\
+  showChoiceButtons(choices, answer);\
+\}\
+\
+\
+// \uc0\u9472 \u9472  4. MAKE WRONG ANSWER CHOICES \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \
+function makeChoices(correctAnswer) \{\
+  let choices = [correctAnswer]; // start with the right answer\
+\
+  // Add 3 wrong answers nearby\
+  while (choices.length < 4) \{\
+    let wrong = correctAnswer + randomNumber(-5, 5);\
+    if (wrong !== correctAnswer && wrong >= 0) \{\
+      choices.push(wrong);\
+    \}\
+  \}\
+\
+  // Shuffle so the right answer isn't always first\
+  return choices.sort(() => Math.random() - 0.5);\
+\}\
+\
+\
+// \uc0\u9472 \u9472  5. CHECK IF ANSWER IS RIGHT \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \
+function checkAnswer(chosen, correct) \{\
+  let feedback = document.getElementById('math-feedback');\
+\
+  if (chosen === correct) \{\
+    feedback.textContent = '\uc0\u55356 \u57225  Yes! Correct!';\
+    feedback.style.background = 'lightgreen';\
+    score++;  // add a point\
+  \} else \{\
+    feedback.textContent = '\uc0\u55357 \u56481  Oops! The answer is ' + correct;\
+    feedback.style.background = '#ffcccc';\
+  \}\
+\
+  feedback.style.display = 'block'; // show the feedback box\
+\}\
+\
+\
+// \uc0\u9472 \u9472  6. SPELLING: TAP A LETTER \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \
+function tapLetter(letter, button) \{\
+  // Find the next empty slot\
+  let emptySlot = document.querySelector('.slot:empty');\
+\
+  if (emptySlot) \{\
+    emptySlot.textContent = letter; // fill the slot\
+    button.disabled = true;         // grey out the used letter\
+\
+    // Check if all slots are filled\
+    let allFilled = document.querySelectorAll('.slot:empty').length === 0;\
+    if (allFilled) checkSpelling();\
+  \}\
+\}\
+\
+\
+// \uc0\u9472 \u9472  7. CHECK THE SPELLING \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \
+function checkSpelling() \{\
+  // Collect all the letters the child tapped\
+  let slots = document.querySelectorAll('.slot');\
+  let guess = '';\
+  slots.forEach(slot => guess += slot.textContent);\
+\
+  if (guess === currentWord) \{\
+    showFeedback('\uc0\u55356 \u57119  Correct spelling!', 'green');\
+  \} else \{\
+    showFeedback('\uc0\u55357 \u56481  The word is ' + currentWord, 'red');\
+  \}\
+\}\
+\
+\
+// \uc0\u9472 \u9472  8. MATCHING: TAP A PAIR \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \
+let firstPick = null; // stores the first item tapped\
+\
+function tapMatch(pairIndex, side) \{\
+  if (!firstPick) \{\
+    // First tap \'97 remember it\
+    firstPick = \{ index: pairIndex, side: side \};\
+  \} else \{\
+    // Second tap \'97 check if they match\
+    if (firstPick.index === pairIndex && firstPick.side !== side) \{\
+      // \uc0\u9989  Same pair index, different side = MATCH!\
+      markAsMatched(pairIndex);\
+    \} else \{\
+      // \uc0\u10060  Wrong pair\
+      showFeedback('\uc0\u55357 \u56481  Try again!', 'red');\
+    \}\
+    firstPick = null; // reset for next pick\
+  \}\
+\}\
+\
+\
+// \uc0\u9472 \u9472  9. ADD A STAR \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \
+function addStar() \{\
+  if (totalStars < 5) \{\
+    totalStars++;\
+    // Light up the next star icon\
+    document.getElementById('star-' + totalStars).style.color = 'gold';\
+  \}\
+\}\
+\
+\
+// \uc0\u9472 \u9472  10. HELPER: RANDOM NUMBER \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \
+function randomNumber(min, max) \{\
+  return Math.floor(Math.random() * (max - min + 1)) + min;\
+\}\
+\
+const LEVELS = \{\
+  6: \{\
+    label: 'Easy',\
+    mathMax: 10,        // add/subtract numbers up to 10\
+    matchPairs: 3,      // only 3 pairs to match\
+    words: ['CAT', 'DOG', 'SUN', 'HAT', 'BUS']\
+  \},\
+  7: \{\
+    label: 'Medium',\
+    mathMax: 20,        // harder math\
+    matchPairs: 4,\
+    words: ['FROG', 'CAKE', 'BIRD', 'STAR', 'TREE']\
+  \},\
+  8: \{\
+    label: 'Hard',\
+    mathMax: 50,        // biggest numbers\
+    matchPairs: 5,\
+    words: ['ELEPHANT', 'RAINBOW', 'GIRAFFE', 'DOLPHIN', 'PENGUIN']\
+  \}\
+\};\
+\
+// Use it like this:\
+let settings = LEVELS[currentAge];\
+let max = settings.mathMax; // gets 10, 20, or 50 depending on age\
+\
+let totalDone = 0;\
+let totalCorrect = 0;\
+let history = []; // stores a log of every activity\
+\
+function logScore(activityName, correct, outOf) \{\
+  totalDone++;\
+  let percent = Math.round((correct / outOf) * 100);\
+\
+  // Save to history log\
+  history.push(\{\
+    name: activityName,\
+    correct: correct,\
+    outOf: outOf,\
+    percent: percent\
+  \});\
+\
+  // Award a star if they scored 80% or above\
+  if (percent >= 80) addStar();\
+\
+  // Update the score display\
+  updateScoreBoard();\
+\}\
+\
+function updateScoreBoard() \{\
+  document.getElementById('total-done').textContent = totalDone;\
+  document.getElementById('avg-score').textContent =\
+    Math.round(totalCorrect / totalDone) + '%';\
+\}\
+\
+}
